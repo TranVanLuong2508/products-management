@@ -1,3 +1,18 @@
 extends ../../layouts/default.pug
 block main 
- h1 Đây là trang product 
+  .container.my-3 
+    .row
+      .col-12
+        .box-head
+          .h2.inner-title Danh sách sản phẩm
+          
+    .row
+      .col-4.mb-3 
+        .product-item 
+          .inner-image
+            img(src="https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-gold-thumbnew-600x600.jpg", alt="iphone 15")
+          .inner-content 
+            h3.inner-title iphone 15
+            .inner-price-new 80$
+            .inner-price-old 100$
+            .inner-discount -20%
