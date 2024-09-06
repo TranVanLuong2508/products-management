@@ -1,0 +1,75 @@
+extends ../../layouts/default.pug
+include ../../mixins/filterButtons.pug
+block main
+ h1 Trang sản phẩm
+
+ .card.mb-3
+   .card-header Bộ lọc và tìm kiếm
+   .card-body
+     .row
+        .col-6
+          +filterButtons(listButton)
+        .col-6 
+          form(action="", id ="form-search")
+            .input-group
+              input(type="text"
+              placeholder = "Nhập từ khóa"
+              name = "keyword"
+              class = "form-control"
+              value =keyword
+            )
+              .input-group-append
+                button(
+                  class="btn btn-success"
+                  type="submit"
+                ) Tìm
+        
+ table.table.table-hover.table-sm
+        thead 
+            tr
+            th STT
+            th Hình ảnh
+            th Tiêu đề
+            th Giá
+            th Trạng thái 
+            th Hành động
+        tbody 
+            each item, index in listProducts
+                tr 
+                    td #{index + 1}
+                    td 
+                        img(src=item.thumbnail, 
+                        alt=item.title
+                        width ="100px"
+                        height="auto")
+                    td #{item.title} 
+                    td #{item.price}
+                    td 
+                      if(item.status === "active")
+                        a(href="#" class = "badge badge-success") Hoạt động
+                      else 
+                        a(href="#" class = "badge badge-danger") Ngừng hoạt động
+                    td 
+                        button(class ="btn btn-warning btn-sm") Sửa 
+                        button(class ="btn btn-danger btn-sm ml-1") Xóa
+
+ nav 
+      ul(class="pagination")
+        if(Pagination.currentPage > 1) 
+          li(claas="page-item")
+          button(class="page-link"
+          button-pagination = Pagination.currentPage - 1) Trang trước
+        //- li(claas="page-item")
+        //-   button(class="page-link") 1
+        //- li(claas="page-item")
+        //-   button(class="page-link") 2
+        //- li(claas="page-item")
+        //-   button(class="page-link") 3
+        - for(var i =1; i <= Pagination.totalPage ; i++)
+           li(class=`page-item ${Pagination.currentPage == i ? "active":""}`)
+              button(class="page-link"
+              button-pagination = i ) #{i}
+        if( Pagination.currentPage < Pagination.totalPage )
+          li(claas="page-item")
+            button(class="page-link"
+            button-pagination = Pagination.currentPage + 1 ) Kế tiếp
