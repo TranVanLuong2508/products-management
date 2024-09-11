@@ -1,5 +1,9 @@
 const express = require('express')
+var methodOverride = require('method-override')
+var bodyParser = require('body-parser')
 const app = express()
+app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded({ extended: false }))
 //use env
 require("dotenv").config();
 const port = process.env.PORT
@@ -18,8 +22,11 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin
 //route
 const route = require("./routes/client/index.route.js")
 const adminRoute = require("./routes/admin/index.route.js")
+
 route(app);
+
 adminRoute(app)
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
